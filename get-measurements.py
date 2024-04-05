@@ -115,10 +115,10 @@ def click_event(event, x, y, flags, param):
         print(f"X: {x_respecto_al_centro} Y {y_respecto_al_centro}")
         # Una vez añadido el punto, calcula y muestra información de los segmentos de línea
         if len(points) >= 2:  # Asegura que hay al menos dos puntos para formar un segmento
-            line_segments(points, matriz, dz)
+            compute_line_segments(points, matriz, dz)
 
 
-def line_segments(points:list, camera_matrix:np, distance_z:float)->list:
+def compute_line_segments(points:list, camera_matrix:np, distance_z:float)->list:
     """
     Calcula y ordena los segmentos de línea formados por una lista de puntos
     en una imagen.
@@ -224,7 +224,7 @@ def handle_user_interaction(matriz:np)->str: # perimite una nueva interaccion co
     key = cv2.waitKey(1) & 0xFF
     if key == ord('c') and len(points) >2 and not is_figure_closed: #presionar c para cerrar la figura
         is_figure_closed = True  # Marca la figura como cerrada
-        segments_info=line_segments(points, matriz, dz) # imprime denuevo las lineas segmentadas incluyendo la cerrada
+        segments_info=compute_line_segments(points, matriz, dz) # imprime denuevo las lineas segmentadas incluyendo la cerrada
         perimeter = calculate_perimeter(segments_info) # calcula e imprime el perimetro
         print(f"Perímetro: {perimeter} centimetros")
         segments_info.clear() #borra las distancias
